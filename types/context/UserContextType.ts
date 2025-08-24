@@ -1,10 +1,7 @@
-// import { RoleContextType } from "./RoleContextType";
+import { UserType } from "../entities/UserType";
+
 export interface UserContextType {
+    user: UserType | null;
+    setUser: (user: UserType | null) => void;
     
-    username: string | null;
-    setUsername: (username: string | null) => void;
-    email: string | null;
-    setEmail: (email: string | null) => void;
-    // roles: RoleContextType[]; 
-    // setRoles: (roles:RoleContextType[] ) => void;
 }

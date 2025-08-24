@@ -1,29 +1,36 @@
 import React, { useState } from 'react';
+import { getUserData } from '../../handlers/service/User/ getUserHandler';
 import { useUserContext } from '../../context/UserContext';
+import { UserType } from '../../types/entities/UserType';
+
+const { user, setUser } = useUserContext();
 
 export const useUser = () => {
-  const { username, setUsername, email, setEmail } = useUserContext();
-  const [inputUsername, setInputUsername] = useState("");
-  const [inputEmail, setInputEmail] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
-  const [inputConfirmPassword, setInputConfirmPassword] = useState("");
+  const getUser = async (id: number): Promise<UserType> => {
+    try {
+      if (user !== null) {
+        if (user.userId === id) {
+          return user;
+        }
+      }
+      const userData = await getUserData(id);
+      return userData;
 
-  const getUserInfo = () => {
-
-    return { username, email };
-  };
-
-  const updateUser = (newUsername: string | null, newEmail: string | null) => {
-    if (newUsername) {
-      setUsername(newUsername);
+    } catch (error) {
+      throw error;
     }
-    if (newEmail) {
-      setEmail(newEmail);
-    }
-  };
 
-  return { getUserInfo, updateUser, username, setUsername, email, setEmail,
-     inputUsername, setInputUsername, inputEmail, setInputEmail, inputPassword,
-      setInputPassword, inputConfirmPassword, setInputConfirmPassword };
+  }
+
+  const setUser = async (id: number, user: UserType) => {
+    try {
+      const user = await getUserData(id);
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  return { getUser };
 
 };

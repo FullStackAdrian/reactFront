@@ -1,25 +1,23 @@
 import React, { createContext, useContext, useState } from 'react';
 import { UserContextType } from '../types/context/UserContextType';
-// import { RoleContextType } from '../types/RoleContextType';
+import { UserType } from '../types/entities/UserType';
 
-export const UserContext = createContext<UserContextType | undefined>(undefined);
+export const UserContext = createContext<UserContextType | null>(null);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-    const [username, setUsername] = useState<string | null>(null);
-    const [email, setEmail] = useState<string | null>(null);
-    //const [roles, setRoles] = useState<RoleContextType[]>([]); 
-
+    const [user, setUser] = useState<UserType | null>(null);
 
     return (
-        <UserContext.Provider value={{ username, setUsername, email, setEmail }}>
+        <UserContext.Provider value={{ user, setUser }}>
             {children}
         </UserContext.Provider>
     );
+    
 }
 
 export const useUserContext = () => {
     const context = useContext(UserContext);
-    if (context === undefined) {
+    if (context === null) {
         throw new Error('useUserContext must be used within a UserProvider');
     }
     return context;

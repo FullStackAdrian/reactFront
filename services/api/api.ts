@@ -21,13 +21,13 @@ const createAxiosInstance = (token?: string): AxiosInstance => {
           console.error(data);
           break;
         case 401:
-          console.error('unauthorised');
+          throw new Error('unauthorised');
           break;
         case 404:
-          console.error('/not-found');
+          throw new Error('/not-found');
           break;
         case 500:
-          console.error('/server-error');
+          throw new Error('/server-error');
           break;
       }
       return Promise.reject(error);
@@ -52,9 +52,9 @@ const responseBody = <T>(response: AxiosResponse): T => {
 export const createRequest = (token?: string) => {
   const axiosInstance = createAxiosInstance(token);
   return {
-    get: <T>(url: string) =>
-      axiosInstance.get<T>(url).then(responseBody),
-    post: <TResponse, TRequest>(url: string, body: TRequest ): Promise<TResponse> =>
+    get: <TResponse, TRequest>(url: string, body: TRequest): Promise<TResponse> =>
+      axiosInstance.post(url, body).then((response) => responseBody<TResponse>(response)),
+    post: <TResponse, TRequest>(url: string, body: TRequest): Promise<TResponse> =>
       axiosInstance.post(url, body).then((response) => responseBody<TResponse>(response)),
   };
 };
