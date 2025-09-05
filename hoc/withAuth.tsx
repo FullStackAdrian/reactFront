@@ -1,11 +1,13 @@
 // hoc/withAuth.tsx
-import React, { useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { useAuth } from '../hooks/auth/useAuth';
-import { ActivityIndicator } from 'react-native';
-import { useLoadingContext } from '../context/LoadingContext';
+import React, { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../hooks/auth/useAuth";
+import { ActivityIndicator } from "react-native";
+import { useLoadingContext } from "../context/LoadingContext";
 
-export default function withAuth<P extends object>(WrappedComponent: React.ComponentType<P>): React.FC<P> {
+export default function withAuth<P extends object>(
+  WrappedComponent: React.ComponentType<P>,
+): React.FC<P> {
   return (props: P) => {
     const { token } = useAuth();
     const { loading } = useLoadingContext(); // Assuming useAuth provides a loading state
@@ -15,14 +17,14 @@ export default function withAuth<P extends object>(WrappedComponent: React.Compo
       if (!loading && !token) {
         navigation.reset({
           index: 0,
-          routes: [{ name: 'Login' }],
+          routes: [{ name: "Login" }],
         });
       }
     }, [loading, token]);
 
     if (loading || !token) {
       return <ActivityIndicator />;
-    }    
+    }
 
     return <WrappedComponent {...props} />;
   };

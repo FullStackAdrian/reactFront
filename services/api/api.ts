@@ -1,9 +1,9 @@
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
-import { useAuth } from '../../hooks/auth/useAuth';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import { useAuth } from "../../hooks/auth/useAuth";
 
 const createAxiosInstance = (token?: string): AxiosInstance => {
   const instance = axios.create({
-    baseURL: 'https://localhost:5041/api/v1',
+    baseURL: "https://localhost:5041/api/v1",
   });
 
   instance.interceptors.request.use((config) => {
@@ -22,17 +22,17 @@ const createAxiosInstance = (token?: string): AxiosInstance => {
           console.error(data);
           break;
         case 401:
-          throw new Error('unauthorised');
+          throw new Error("unauthorised");
           break;
         case 404:
-          throw new Error('/not-found');
+          throw new Error("/not-found");
           break;
         case 500:
-          throw new Error('/server-error');
+          throw new Error("/server-error");
           break;
       }
       return Promise.reject(error);
-    }
+    },
   );
 
   return instance;
@@ -46,17 +46,27 @@ const responseBody = <T>(response: AxiosResponse): T => {
     return viewModel as T;
   }
 
-  const message = response.data?.message || 'Respuesta del servidor inválida';
+  const message = response.data?.message || "Respuesta del servidor inválida";
   throw new Error(message);
 };
 
 export const createRequest = () => {
   const { token } = useAuth();
-  const axiosInstance = createAxiosInstance(token?token:undefined);
+  const axiosInstance = createAxiosInstance(token ? token : undefined);
   return {
-    get: <TResponse, TRequest>(url: string, body: TRequest): Promise<TResponse> =>
-      axiosInstance.post(url, body).then((response) => responseBody<TResponse>(response)),
-    post: <TResponse, TRequest>(url: string, body: TRequest): Promise<TResponse> =>
-      axiosInstance.post(url, body).then((response) => responseBody<TResponse>(response)),
+    get: <TResponse, TRequest>(
+      url: string,
+      body: TRequest,
+    ): Promise<TResponse> =>
+      axiosInstance
+        .post(url, body)
+        .then((response) => responseBody<TResponse>(response)),
+    post: <TResponse, TRequest>(
+      url: string,
+      body: TRequest,
+    ): Promise<TResponse> =>
+      axiosInstance
+        .post(url, body)
+        .then((response) => responseBody<TResponse>(response)),
   };
 };

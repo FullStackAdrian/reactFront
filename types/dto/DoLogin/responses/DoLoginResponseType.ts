@@ -1,4 +1,4 @@
 export interface DoLoginResponseType {
-    token: string;
-    userId : number;
+  token: string;
+  userId: number;
 }
