@@ -11,7 +11,7 @@ export const getUserData = async (id: number): Promise<UserType> => {
       userId: data.userId,
       username: data.username,
       email: data.email,
-      roles: data.roles,
+      roles: data.roles
     };
     return userData;
   } catch (error) {

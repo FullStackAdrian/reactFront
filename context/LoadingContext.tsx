@@ -2,10 +2,10 @@ import React, { createContext, useContext, useState } from "react";
 import { LoadingContextType } from "../types/context/LoadingContextType";
 
 export const LoadingContext = createContext<LoadingContextType | undefined>(
-  undefined,
+  undefined
 );
 export const LoadingProvider = ({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) => {

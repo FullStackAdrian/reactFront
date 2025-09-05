@@ -2,7 +2,7 @@ import { fetchDoLogin } from "../../services/api/DoLogin/doLoginService";
 
 export const doLoginUseCase = async (
   inputUsername: string,
-  inputPassword: string,
+  inputPassword: string
 ): Promise<{ token: string; userId: number }> => {
   try {
     const data = await fetchDoLogin(inputUsername, inputPassword);

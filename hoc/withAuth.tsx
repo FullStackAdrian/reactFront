@@ -6,7 +6,7 @@ import { ActivityIndicator } from "react-native";
 import { useLoadingContext } from "../context/LoadingContext";
 
 export default function withAuth<P extends object>(
-  WrappedComponent: React.ComponentType<P>,
+  WrappedComponent: React.ComponentType<P>
 ): React.FC<P> {
   return (props: P) => {
     const { token } = useAuth();
@@ -17,7 +17,7 @@ export default function withAuth<P extends object>(
       if (!loading && !token) {
         navigation.reset({
           index: 0,
-          routes: [{ name: "Login" }],
+          routes: [{ name: "Login" }]
         });
       }
     }, [loading, token]);

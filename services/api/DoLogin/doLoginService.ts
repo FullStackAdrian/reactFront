@@ -4,7 +4,7 @@ import { DoLoginRequestType } from "../../../types/dto/DoLogin/requests/DoLoginR
 
 export const fetchDoLogin = async (
   username: string,
-  password: string,
+  password: string
 ): Promise<DoLoginResponseType> => {
   try {
     const api = createRequest();
@@ -12,14 +12,14 @@ export const fetchDoLogin = async (
       "/login",
       {
         username,
-        password,
-      },
+        password
+      }
     );
 
     return response;
   } catch (error: any) {
     throw new Error(
-      error.response?.data?.message || "Error desconocido al hacer login",
+      error.response?.data?.message || "Error desconocido al hacer login"
     );
   }
 };

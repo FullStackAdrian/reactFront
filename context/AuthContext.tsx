@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 import { AuthContextType } from "../types/context/AuthContextType";
 
 export const AuthContext = createContext<AuthContextType | undefined>(
-  undefined,
+  undefined
 );
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {

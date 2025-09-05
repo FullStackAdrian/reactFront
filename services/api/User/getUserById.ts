@@ -9,8 +9,8 @@ export const fetchGetUserById = async (userId: number) => {
     const response = await api.get<GetUserWithRolesResponse, GetUserRequest>(
       "user",
       {
-        userId,
-      },
+        userId
+      }
     );
     return response;
   } catch (error) {

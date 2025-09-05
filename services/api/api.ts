@@ -3,10 +3,10 @@ import { useAuth } from "../../hooks/auth/useAuth";
 
 const createAxiosInstance = (token?: string): AxiosInstance => {
   const instance = axios.create({
-    baseURL: "https://localhost:5041/api/v1",
+    baseURL: "https://localhost:5041/api/v1"
   });
 
-  instance.interceptors.request.use((config) => {
+  instance.interceptors.request.use(config => {
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -14,7 +14,7 @@ const createAxiosInstance = (token?: string): AxiosInstance => {
   });
 
   instance.interceptors.response.use(
-    (res) => res,
+    res => res,
     (error: AxiosError) => {
       const { data, status } = error.response!;
       switch (status) {
@@ -32,7 +32,7 @@ const createAxiosInstance = (token?: string): AxiosInstance => {
           break;
       }
       return Promise.reject(error);
-    },
+    }
   );
 
   return instance;
@@ -56,17 +56,17 @@ export const createRequest = () => {
   return {
     get: <TResponse, TRequest>(
       url: string,
-      body: TRequest,
+      body: TRequest
     ): Promise<TResponse> =>
       axiosInstance
         .post(url, body)
-        .then((response) => responseBody<TResponse>(response)),
+        .then(response => responseBody<TResponse>(response)),
     post: <TResponse, TRequest>(
       url: string,
-      body: TRequest,
+      body: TRequest
     ): Promise<TResponse> =>
       axiosInstance
         .post(url, body)
-        .then((response) => responseBody<TResponse>(response)),
+        .then(response => responseBody<TResponse>(response))
   };
 };
