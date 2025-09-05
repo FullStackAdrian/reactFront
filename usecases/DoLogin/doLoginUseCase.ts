@@ -6,7 +6,7 @@ export const doLoginUseCase = async (
 ): Promise<{ token: string; userId: number }> => {
   try {
     const data = await fetchDoLogin(inputUsername, inputPassword);
-    if (data.token && data.userId) {
+    if (data.token && data.userId && data.organizations) {
       const token: string = data.token;
       const userId: number = data.userId;
 
