@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { doLogin } from '../../usecases/DoLogin/doLoginUseCase';
+import { doLoginUseCase } from '../../usecases/DoLogin/doLoginUseCase';
 
 export const useLogin = () => {
     const [inputUsername, setInputUsername] = useState("");
     const [inputPassword, setInputPassword] = useState("");
 
-    const handleLogin = async () => {
+    const doLogin = async () => {
         try {
-            const loggedUserData = await doLogin(inputUsername, inputPassword);
+            const loggedUserData = await doLoginUseCase(inputUsername, inputPassword);
             if (loggedUserData) {
                 return loggedUserData;
             }
@@ -16,5 +16,5 @@ export const useLogin = () => {
             throw new Error(e.message || 'Error al iniciar sesión');
         }
     };
-    return { setInputUsername, setInputPassword, handleLogin };
+    return { setInputUsername, setInputPassword, doLogin };
 }
