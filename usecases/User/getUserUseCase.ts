@@ -1,5 +1,5 @@
-import { UserType } from '../../../types/entities/UserType';
-import { fetchGetUserById } from '../../../services/api/User/getUserById';
+import { UserType } from '../../types/entities/UserType';
+import { fetchGetUserById } from '../../services/api/User/getUserById';
 
 export const getUserData = async (id: number): Promise<UserType> => {
     try {

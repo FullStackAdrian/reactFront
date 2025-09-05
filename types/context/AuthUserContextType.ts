@@ -1,6 +1,6 @@
 import { UserType } from "../entities/UserType";
 
-export interface UserContextType {
+export interface AuthUserContextType {
     user: UserType | null;
     setUser: (user: UserType | null) => void;
     

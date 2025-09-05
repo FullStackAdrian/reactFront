@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import { useAuth } from '../../hooks/auth/useAuth';
 
 const createAxiosInstance = (token?: string): AxiosInstance => {
   const instance = axios.create({
@@ -49,8 +50,9 @@ const responseBody = <T>(response: AxiosResponse): T => {
   throw new Error(message);
 };
 
-export const createRequest = (token?: string) => {
-  const axiosInstance = createAxiosInstance(token);
+export const createRequest = () => {
+  const { token } = useAuth();
+  const axiosInstance = createAxiosInstance(token?token:undefined);
   return {
     get: <TResponse, TRequest>(url: string, body: TRequest): Promise<TResponse> =>
       axiosInstance.post(url, body).then((response) => responseBody<TResponse>(response)),
