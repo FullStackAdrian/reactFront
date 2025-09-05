@@ -1,12 +1,12 @@
 import { createRequest } from "../api";
 import { GetUserRequest } from "../../../types/dto/User/requests/GetUserRequest";
-import { GetUserWithRolesResponse } from "../../../types/dto/User/responses/GetUserWithRolesResponse";
+import { GetUserResponse } from "../../../types/dto/User/responses/GetUserResponse";
 
 export const fetchGetUserById = async (userId: number) => {
   try {
     const api = createRequest();
 
-    const response = await api.get<GetUserWithRolesResponse, GetUserRequest>(
+    const response = await api.get<GetUserResponse, GetUserRequest>(
       "user",
       {
         userId

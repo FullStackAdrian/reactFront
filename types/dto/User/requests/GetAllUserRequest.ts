@@ -1,6 +1,5 @@
 export interface GetAllUserRequest {
-  authenticatedUserId: number;
-  options?: {
-    includeRoles?: boolean;
+  options: {
+    includeRoles: boolean;
   };
 }
