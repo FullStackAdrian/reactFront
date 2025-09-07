@@ -1,13 +1,12 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
-import { useAuth } from "../../hooks/auth/useAuth";
 
-const createAxiosInstance = (token?: string): AxiosInstance => {
+const createAxiosInstance = (token?: string | undefined): AxiosInstance => {
   const instance = axios.create({
     baseURL: "https://localhost:5041/api/v1"
   });
 
   instance.interceptors.request.use(config => {
-    if (token) {
+    if (token !== undefined) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -50,8 +49,7 @@ const responseBody = <T>(response: AxiosResponse): T => {
   throw new Error(message);
 };
 
-export const createRequest = () => {
-  const { token } = useAuth();
+export const createRequest = (token: string | null) => {
   const axiosInstance = createAxiosInstance(token ? token : undefined);
   return {
     get: <TResponse, TRequest>(

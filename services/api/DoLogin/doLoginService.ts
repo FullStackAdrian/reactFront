@@ -7,7 +7,7 @@ export const fetchDoLogin = async (
   password: string
 ): Promise<DoLoginResponseType> => {
   try {
-    const api = createRequest();
+    const api = createRequest(null);
     const response = await api.post<DoLoginResponseType, DoLoginRequestType>(
       "/login",
       {
@@ -19,7 +19,7 @@ export const fetchDoLogin = async (
     return response;
   } catch (error: any) {
     throw new Error(
-      error.response?.data?.message || "Error desconocido al hacer login"
+      error.response?.data?.message || error.message 
     );
   }
 };
